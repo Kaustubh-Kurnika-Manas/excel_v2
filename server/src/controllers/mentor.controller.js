@@ -8,6 +8,7 @@ const Semester = require("../models/Semester");
 const response = require("../utils/responses.utils");
 const emailService = require("../services/email.service");
 const roles = require("../utils/roles");
+const mentorHelper = require("../helpers/mentor.helper");
 
 // env config
 dotenv.config();
@@ -267,6 +268,22 @@ module.exports = {
 
             await mentor.save();
             response.success(res, "Profile updated", { profileData: mentor });
+        } catch (err) {
+            console.log(err);
+            response.error(res);
+        }
+    },
+
+    // Auto pair mentors and assign mentees
+    autoPairMentorsAndAssignMentees: async (req, res, next) => {
+        try {
+            const result = await mentorHelper.autoPairMentorsAndAssignMentees();
+            if (result.success) {
+                response.success(res, result.message, result.mentorPairs);
+            } else {
+                response.error(res, result.message);
+            }
+            next();
         } catch (err) {
             console.log(err);
             response.error(res);

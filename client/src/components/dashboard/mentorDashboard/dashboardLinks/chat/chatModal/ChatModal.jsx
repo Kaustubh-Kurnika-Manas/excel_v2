@@ -16,6 +16,7 @@ const ChatModal = ({ setShowModal, nodeRef }) => {
     // accesing global state to fetch the chats
     const { chats } = useSelector((state) => state.chat);
     const { mentees } = useSelector((state) => state.mentor);
+    const { profileData } = useSelector((state) => state.student);
 
     const dispatch = useDispatch();
     const history = useHistory();
@@ -30,14 +31,13 @@ const ChatModal = ({ setShowModal, nodeRef }) => {
         // checking to see if the logged in user in student or mentor
         if (role === Roles.STUDENT) {
             // For students, we want to show their mentor as a chat option
-            const mentor = mentees.find(m => m.role === Roles.MENTOR);
-            if (mentor) {
-                setMyMentees([mentor]);
+            if (profileData?.mentoredBy && profileData.mentoredBy.length > 0) {
+                setMyMentees(profileData.mentoredBy);
             }
         } else {
             setMyMentees(mentees);
         }
-    }, [dispatch, history, role, mentees]);
+    }, [dispatch, history, role, mentees, profileData]);
 
     // function to add and remove the chat ids from the state variable chatIds
     const handleChange = (e) => {
@@ -56,7 +56,7 @@ const ChatModal = ({ setShowModal, nodeRef }) => {
         dispatch(createChat(history, setShowModal, chatIds));
     };
 
-    console.log("users", mentees);
+    console.log("users", myMentees);
     console.log("chatIds", chatIds);
 
     return (

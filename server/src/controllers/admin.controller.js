@@ -125,15 +125,18 @@ module.exports = {
     assignMentees: async (req, res, next) => {
         try {
             const { mentorId, studentIds } = req.body;
+            console.log("Assigning mentees:", { mentorId, studentIds });
 
             // Validate input
             if (!mentorId || !studentIds || !Array.isArray(studentIds)) {
+                console.log("Invalid input data");
                 return response.badrequest(res, "Invalid input data");
             }
 
             // Find the mentor
             const mentor = await Mentor.findById(mentorId);
             if (!mentor) {
+                console.log("Mentor not found:", mentorId);
                 return response.notfound(res, "Mentor not found");
             }
 
@@ -145,10 +148,18 @@ module.exports = {
                     continue;
                 }
 
+                console.log(`Processing student ${studentId}:`, {
+                    currentMentoredBy: student.mentoredBy,
+                    mentorId: mentorId
+                });
+
                 // Add mentor to student's mentoredBy array if not already present
                 if (!student.mentoredBy.includes(mentorId)) {
                     student.mentoredBy.push(mentorId);
                     await student.save();
+                    console.log(`Updated student ${studentId} with mentor ${mentorId}`);
+                } else {
+                    console.log(`Student ${studentId} already has mentor ${mentorId}`);
                 }
             }
 
@@ -156,11 +167,12 @@ module.exports = {
             const studentCount = await Student.countDocuments({ mentoredBy: mentorId });
             mentor.studentCount = studentCount;
             await mentor.save();
+            console.log(`Updated mentor ${mentorId} student count to ${studentCount}`);
 
             response.success(res, "Mentees assigned successfully");
             next();
         } catch (err) {
-            console.log(err);
+            console.error("Error in assignMentees:", err);
             response.error(res);
         }
     },
@@ -611,6 +623,22 @@ module.exports = {
                 fs.unlinkSync(req.file.path);
             } catch (err) {
                 console.error('Error deleting file:', err);
+            }
+
+            // Trigger auto-pairing after importing mentees
+            try {
+                console.log("Starting auto-pairing process after mentee import...");
+                const pairingResult = await mentorHelpers.autoPairMentorsAndAssignMentees();
+                if (pairingResult.success) {
+                    results.autoPairing = "Auto-pairing completed successfully";
+                    console.log("Auto-pairing completed:", pairingResult.message);
+                } else {
+                    results.autoPairingError = pairingResult.message;
+                    console.error("Auto-pairing failed:", pairingResult.message);
+                }
+            } catch (err) {
+                console.error('Error in auto-pairing:', err);
+                results.autoPairingError = err.message;
             }
 
             response.success(res, "Mentee import completed", results);

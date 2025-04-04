@@ -46,4 +46,7 @@ router.post("/profile", Auth, Authorize(Role.Mentor), mentorController.updatePro
 // get profile
 router.get("/profile", Auth, Authorize(Role.Mentor), mentorController.getProfile);
 
+// Auto pair mentors and assign mentees
+router.post("/auto-pair", Auth, Authorize([Role.Admin]), mentorController.autoPairMentorsAndAssignMentees, Logger(events.AUTO_PAIR));
+
 module.exports = router;

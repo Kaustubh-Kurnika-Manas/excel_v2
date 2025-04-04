@@ -39,3 +39,8 @@ export const updateMentorProfilePicutre = (avatar) =>
     API.post("/avatar", avatar).catch((error) => {
         return error.response;
     });
+
+export const autoPairMentorsAndAssignMentees = () =>
+    API.post("/mentor/auto-pair").catch((error) => {
+        return error.response;
+    });

@@ -175,3 +175,22 @@ export const logoutMentor = () => async (dispatch) => {
         console.log(error);
     }
 };
+
+export const autoPairMentorsAndAssignMentees = (history) => async (dispatch) => {
+    try {
+        const { data } = await api.autoPairMentorsAndAssignMentees();
+        console.log("Auto pairing result:", data);
+
+        if (data.code === 200) {
+            showToast("success", data.msg, 5000, toast.POSITION.TOP_RIGHT);
+            // Refresh mentor and student data
+            dispatch(mentorGetAllMentees(history));
+            dispatch(mentorGetDetails(history));
+        } else {
+            showToast("error", data.msg, 10000, toast.POSITION.BOTTOM_LEFT);
+        }
+    } catch (error) {
+        console.log(error);
+        showToast("error", "Error in automated pairing process", 10000, toast.POSITION.BOTTOM_LEFT);
+    }
+};

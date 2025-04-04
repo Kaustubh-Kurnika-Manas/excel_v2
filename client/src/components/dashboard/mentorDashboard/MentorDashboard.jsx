@@ -636,6 +636,20 @@ const MentorDashboard = () => {
                         position: "top-right",
                         autoClose: 5000,
                     });
+                    
+                    // Handle auto-pairing results
+                    if (results.autoPairing) {
+                        toast.success(results.autoPairing, {
+                            position: "top-right",
+                            autoClose: 5000,
+                        });
+                    }
+                    if (results.autoPairingError) {
+                        toast.error(`Auto-pairing failed: ${results.autoPairingError}`, {
+                            position: "top-right",
+                            autoClose: 5000,
+                        });
+                    }
                 }
                 if (results.errors.length > 0) {
                     toast.error(`Encountered ${results.errors.length} errors during import`, {
