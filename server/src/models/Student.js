@@ -14,61 +14,126 @@ const studentSchema = new mongoose.Schema(
             required: true,
             trim: true,
             unique: true,
+            lowercase: true,
         },
         password: {
             type: String,
             required: true,
-            trim: true,
+            minlength: 6,
         },
         firstname: {
             type: String,
             required: true,
+            trim: true,
         },
         middlename: {
             type: String,
-            default: "",
+            trim: true,
         },
         lastname: {
             type: String,
-            default: "",
+            trim: true,
         },
-        phone_no: String,
-        gender: String,
-        blood_group: String,
-        home_place: String,
+        phone_no: {
+            type: String,
+            trim: true,
+        },
+        gender: {
+            type: String,
+            trim: true,
+        },
+        blood_group: {
+            type: String,
+            trim: true,
+        },
+        home_place: {
+            type: String,
+            trim: true,
+        },
         address: {
             type: String,
-            default: "",
+            trim: true,
         },
-        guardian_name: String,
-        guardian_ph_no: String,
-        guardian_address: String,
-        family_details: String,
-        hobbies: String,
-        enrollmentNumber: {
+        guardian_name: {
             type: String,
-            required: false,
-            unique: true,
+            trim: true,
         },
-        semester: {
+        guardian_ph_no: {
+            type: String,
+            trim: true,
+        },
+        guardian_address: {
+            type: String,
+            trim: true,
+        },
+        family_details: {
+            type: String,
+            trim: true,
+        },
+        hobbies: {
+            type: String,
+            trim: true,
+        },
+        enrollment_no: {
             type: String,
             required: true,
+            unique: true,
+            trim: true,
+        },
+        year: {
+            type: String,
+            required: true,
+            enum: ['I', 'II', 'III', 'IV']
         },
         department: {
             type: String,
             required: true,
+            trim: true,
         },
-        programme: String,
-        enrollment_year: String,
-        hostel_name: String,
-        hostel_room_no: Number,
-        warden_name: String,
-        warden_ph_no: String,
-        asst_warden_name: String,
-        asst_warden_ph_no: String,
-        responsible_contact_person_at_residence: String,
-        contact_no_of_contact_person: String,
-        residence_address: String,
+        programme: {
+            type: String,
+            trim: true,
+        },
+        enrollment_year: {
+            type: String,
+            trim: true,
+        },
+        hostel_name: {
+            type: String,
+            trim: true,
+        },
+        hostel_room_no: {
+            type: String,
+            trim: true,
+        },
+        warden_name: {
+            type: String,
+            trim: true,
+        },
+        warden_ph_no: {
+            type: String,
+            trim: true,
+        },
+        asst_warden_name: {
+            type: String,
+            trim: true,
+        },
+        asst_warden_ph_no: {
+            type: String,
+            trim: true,
+        },
+        responsible_contact_person_at_residence: {
+            type: String,
+            trim: true,
+        },
+        contact_no_of_contact_person: {
+            type: String,
+            trim: true,
+        },
+        responsible_contact_address: {
+            type: String,
+            trim: true,
+        },
         role: {
             type: String,
             default: Role.Student,
@@ -78,14 +143,8 @@ const studentSchema = new mongoose.Schema(
             ref: "Mentor"
         }],
         avatar: {
-            url: {
-                type: String,
-                default: "",
-            },
-            id: {
-                type: String,
-                default: "",
-            },
+            type: Object,
+            default: { url: "" },
         },
         tokens: [
             {
@@ -106,7 +165,31 @@ const studentSchema = new mongoose.Schema(
         isBanned: {
             type: Boolean,
             default: false
-        }
+        },
+        class_10_board: {
+            type: String,
+            trim: true,
+        },
+        class_10_school: {
+            type: String,
+            trim: true,
+        },
+        class_10_percentage: {
+            type: String,
+            trim: true,
+        },
+        class_12_board: {
+            type: String,
+            trim: true,
+        },
+        class_12_school: {
+            type: String,
+            trim: true,
+        },
+        class_12_percentage: {
+            type: String,
+            trim: true,
+        },
     },
     {
         timestamps: true,

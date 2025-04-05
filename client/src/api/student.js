@@ -25,23 +25,23 @@ export const updateStudentProfile = (fields) =>
         return error.response;
     });
 
-export const fetchStudentSemesterDetails = () =>
-    API.get("/student/semester").catch((error) => {
+export const fetchStudentYearDetails = () =>
+    API.get("/student/year").catch((error) => {
         return error.response;
     });
 
-export const addStudentSemesterDetails = (fields) =>
-    API.post("/student/semester", fields).catch((error) => {
+export const addStudentYearDetails = (fields) =>
+    API.post("/student/year", fields).catch((error) => {
         return error.response;
     });
 
-export const updateStudentSemesterDetails = (fields) =>
-    API.post("/student/semester", fields).catch((error) => {
+export const updateStudentYearDetails = (fields) =>
+    API.post("/student/year", fields).catch((error) => {
         return error.response;
     });
 
-export const deleteStudentSemesterDetails = (fields) =>
-    API.post("/student/semester/delete", fields).catch((error) => {
+export const deleteStudentYearDetails = (fields) =>
+    API.post("/student/year/delete", fields).catch((error) => {
         return error.response;
     });
 

@@ -79,15 +79,15 @@ export const mentorGetAllMentees = () => async (dispatch) => {
     }
 };
 
-export const mentorGetAllMenteeSemesters =
-    (history, setSemesters, menteeId) => async (dispatch) => {
+export const mentorGetAllMenteeYears =
+    (history, setYears, menteeId) => async (dispatch) => {
         try {
-            const { data } = await api.getAllMenteeSemesters(menteeId);
-            console.log("mentee all semesters in actions", data);
+            const { data } = await api.getAllMenteeYears(menteeId);
+            console.log("mentee all years in actions", data);
 
             //check if the response data is error
             if (data.code === 200) {
-                setSemesters(data.data.semesters);
+                setYears(data.data.years);
             } else {
                 showToast("error", data.msg, 10000, toast.POSITION.BOTTOM_LEFT);
             }

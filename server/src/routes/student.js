@@ -38,19 +38,19 @@ router.post(
     Logger(events.PROFILE_UPDATED)
 );
 
-// get semester all/specific information
-router.get("/semester", Auth, Authorize(Role.Student), studentController.getSemesterInfo);
-//add semester info
+// get year all/specific information
+router.get("/year", Auth, Authorize(Role.Student), studentController.getSemesterInfo);
+//add year info
 router.post(
-    "/semester/",
+    "/year/",
     Auth,
     Authorize(Role.Student),
     studentController.addSemesterInfo,
     Logger(events.UPDATED_SEMESTER)
 );
-// semester delete
+// year delete
 router.post(
-    "/semester/delete",
+    "/year/delete",
     Auth,
     Authorize(Role.Student),
     studentController.deleteSemesterInfo,

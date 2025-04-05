@@ -20,8 +20,8 @@ export const getAllMentees = () =>
         return error.response;
     });
 
-export const getAllMenteeSemesters = (menteeId) =>
-    API.get(`/mentor/getSemesters/${menteeId}`).catch((error) => {
+export const getAllMenteeYears = (menteeId) =>
+    API.get(`/mentor/getYears/${menteeId}`).catch((error) => {
         return error.response;
     });
 

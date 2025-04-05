@@ -27,7 +27,7 @@ const Auth = ({ location }) => {
         password: "",
         confirmPassword: "",
         enrollmentNo: "",
-        semester: "",
+        year: "",
         department: "",
     });
     const dispatch = useDispatch();
@@ -51,7 +51,7 @@ const Auth = ({ location }) => {
             password: "",
             confirmPassword: "",
             enrollmentNo: "",
-            semester: "",
+            year: "",
             department: "",
         });
     };
@@ -65,7 +65,7 @@ const Auth = ({ location }) => {
     const handleChange = (e) => {
         // this function is used to set the new form field values
         console.log(e.target.value);
-        if (e.target.name === "semester" && e.target.value === "") return;
+        if (e.target.name === "year" && e.target.value === "") return;
         setFields({ ...fields, [e.target.name]: e.target.value.trim() });
     };
 
@@ -219,28 +219,22 @@ const Auth = ({ location }) => {
                                     />
                                 </div>
                                 <div className="flex flex-col mb-6">
-                                    <label htmlFor="semester" className="mb-2 text-white">
-                                        Semester
+                                    <label htmlFor="year" className="mb-2 text-white">
+                                        Year
                                     </label>
                                     <select
-                                        id="semester"
-                                        name="semester"
+                                        id="year"
+                                        name="year"
                                         className="rounded-lg border-none"
-                                        value={fields.semester}
+                                        value={fields.year}
                                         onChange={handleChange}
                                         required
                                     >
-                                        <option value="">Select semester</option>
-                                        <option value="1st semester">1st semester</option>
-                                        <option value="2nd semester">2nd semester</option>
-                                        <option value="3rd semester">3rd semester</option>
-                                        <option value="4th semester">4th semester</option>
-                                        <option value="5th semester">5th semester</option>
-                                        <option value="6th semester">6th semester</option>
-                                        <option value="7th semester">7th semester</option>
-                                        <option value="8th semester">8th semester</option>
-                                        <option value="9th semester">9th semester</option>
-                                        <option value="10th semester">10th semester</option>
+                                        <option value="">Select Year</option>
+                                        <option value="I">First Year</option>
+                                        <option value="II">Second Year</option>
+                                        <option value="III">Third Year</option>
+                                        <option value="IV">Fourth Year</option>
                                     </select>
                                 </div>
                             </div>

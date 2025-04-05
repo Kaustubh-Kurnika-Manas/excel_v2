@@ -380,8 +380,8 @@ const Profile = ({ profileData }) => {
                                         <h4 className="text-gray-800">{profileData?.department || ''}</h4>
                                     </div>
                                     <div className="flex items-start justify-center flex-col mb-4">
-                                        <h4 className="text-gray-400">Semester</h4>
-                                        <h4 className="text-gray-800">{profileData?.semester || ''}</h4>
+                                        <h4 className="text-gray-400">Year</h4>
+                                        <h4 className="text-gray-800">{profileData?.year || ''}</h4>
                                     </div>
                                     <div className="flex items-start justify-center flex-col">
                                         <h4 className="text-gray-400">Enrollment Number</h4>

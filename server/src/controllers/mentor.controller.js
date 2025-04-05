@@ -211,10 +211,13 @@ module.exports = {
     },
 
     // fetch students semesters
-    fetchStudentSemesters: async (req, res, next) => {
+    mentorGetAllMenteeSemesters: async (req, res, next) => {
         try {
             const _id = req.params.id;
-            const semesters = await Semester.find({ student_id: _id });
+            const semesters = await Semester.find({ student_id: _id })
+                .sort({
+                    year: 1,
+                });
             response.success(res, "", { semesters });
             next();
         } catch (err) {

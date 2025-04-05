@@ -94,27 +94,23 @@ const StuModal = ({
                                     </select>
                                 </div>
                                 <div className="flex flex-col mb-3">
-                                    <label htmlFor="semester" className="mb-2">
-                                        Semester
+                                    <label htmlFor="year" className="mb-2">
+                                        Year
                                     </label>
                                     <select
-                                        id="semester"
-                                        name="semester"
+                                        id="year"
+                                        name="year"
                                         className="rounded-lg border-gray-300"
-                                        value={stuProfileData.semester}
+                                        value={stuProfileData.year}
                                         onChange={handleChange}
                                         required
-                                        selected={stuProfileData.semester}
+                                        selected={stuProfileData.year}
                                     >
-                                        <option value="">Select semester</option>
-                                        <option value="1st semester">1st semester</option>
-                                        <option value="2nd semester">2nd semester</option>
-                                        <option value="3rd semester">3rd semester</option>
-                                        <option value="4th semester">4th semester</option>
-                                        <option value="5th semester">5th semester</option>
-                                        <option value="6th semester">6th semester</option>
-                                        <option value="7th semester">7th semester</option>
-                                        <option value="8th semester">8th semester</option>
+                                        <option value="">Select year</option>
+                                        <option value="I">First Year</option>
+                                        <option value="II">Second Year</option>
+                                        <option value="III">Third Year</option>
+                                        <option value="IV">Fourth Year</option>
                                     </select>
                                 </div>
                                 <div className="flex flex-col mb-3">

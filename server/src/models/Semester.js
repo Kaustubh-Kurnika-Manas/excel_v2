@@ -1,22 +1,21 @@
 const mongoose = require("mongoose");
+
 const semesterSchema = new mongoose.Schema(
     {
-        semester: {
-            type: Number,
-        },
         student_id: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Student",
+            required: true,
         },
-        courses: [
-            {
-                code: { type: String },
-                title: { type: String },
-                credit: { type: Number },
-                type: { type: String },
-                grade: { type: String },
-            },
-        ],
+        year: {
+            type: String,
+            required: true,
+            enum: ['I', 'II', 'III', 'IV']
+        },
+        courses: {
+            type: Array,
+            default: [],
+        },
     },
     {
         timestamps: true,
@@ -24,7 +23,7 @@ const semesterSchema = new mongoose.Schema(
 );
 /**
  *  A course is represented as an object with the following properties.
- *  So courses in a semester is represented as an array of all the individual courses
+ *  So courses in a year is represented as an array of all the individual courses
  *  courses: [{
  *              code: String,
  *              title: String,
@@ -34,6 +33,4 @@ const semesterSchema = new mongoose.Schema(
  *           }]
  */
 
-const Semester = mongoose.model("Semester", semesterSchema);
-
-module.exports = Semester;
+module.exports = mongoose.model("Semester", semesterSchema);

@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { mentorGetAllMentees, mentorGetAllMenteeSemesters } from "../../../../../../actions/mentor";
+import { mentorGetAllMentees, mentorGetAllMenteeYears } from "../../../../../../actions/mentor";
 import MenteeDetailsTile from "./menteeDetailsTile/MenteeDetailsTile";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
@@ -50,7 +50,7 @@ const MenteeTile = ({ slno, mentee, history }) => {
                     <h5>{mentee.department}</h5>
                 </div>
                 <div>
-                    <h5>{mentee.semester}</h5>
+                    <h5>{mentee.year}</h5>
                 </div>
                 <div>
                     <h5>{mentee.phone_no}</h5>
@@ -64,7 +64,7 @@ const MenteeTile = ({ slno, mentee, history }) => {
                             onClick={() => {
                                 setShowDetails(true);
                                 dispatch(
-                                    mentorGetAllMenteeSemesters(history, setSemesters, mentee._id)
+                                    mentorGetAllMenteeYears(history, setSemesters, mentee._id)
                                 );
                                 dispatch(mentorGetAllMentees());
                             }}

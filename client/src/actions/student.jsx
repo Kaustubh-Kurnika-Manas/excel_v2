@@ -240,3 +240,67 @@ export const logoutStudent = () => async (dispatch) => {
         console.log(error);
     }
 };
+
+export const studentGetYearDetails = () => async (dispatch) => {
+    try {
+        const { data } = await api.fetchStudentYearDetails();
+        console.log("student year data in actions from get", data);
+
+        if (data.code === 200) {
+            dispatch({ type: "SAVE_YEAR_DATA", data });
+        } else {
+            showToast("error", data.msg, 10000, toast.POSITION.BOTTOM_LEFT);
+        }
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export const studentAddYearDetails = (history, fields, setIsLoading) => async (dispatch) => {
+    try {
+        console.log("in actions for yeardetails", fields);
+        const { data } = await api.addStudentYearDetails(fields);
+        console.log("student year data in actions from add", data);
+
+        if (data.code === 200) {
+            dispatch({ type: "ADD_YEAR_DATA", data });
+        } else {
+            showToast("error", data.msg, 10000, toast.POSITION.BOTTOM_LEFT);
+        }
+        setIsLoading(false);
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export const studentUpdateYearDetails = (history, fields) => async (dispatch) => {
+    try {
+        console.log("in actions for yeardetails", fields);
+        const { data } = await api.updateStudentYearDetails(fields);
+        console.log("student year data in actions from update", data);
+
+        if (data.code === 200) {
+            dispatch({ type: "UPDATE_YEAR_DATA", data });
+        } else {
+            showToast("error", data.msg, 10000, toast.POSITION.BOTTOM_LEFT);
+        }
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export const studentDeleteYearDetails = (history, fields) => async (dispatch) => {
+    try {
+        console.log("in actions for yeardetails", fields);
+        const { data } = await api.deleteStudentYearDetails(fields);
+        console.log("student year data in actions from delete", data);
+
+        if (data.code === 200) {
+            dispatch({ type: "DELETE_YEAR_DATA", data });
+        } else {
+            showToast("error", data.msg, 10000, toast.POSITION.BOTTOM_LEFT);
+        }
+    } catch (error) {
+        console.log(error);
+    }
+};

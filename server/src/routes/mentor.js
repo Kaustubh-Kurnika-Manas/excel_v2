@@ -32,12 +32,12 @@ router.get("/dashboard", Auth, Authorize(Role.Mentor), mentorController.mentorDa
 //get all students of mentored
 router.get("/getAllMentees", Auth, Authorize(Role.Mentor), mentorController.fetchAllMentees);
 
-// get all semesters info of mentee
+// get all years info of mentee
 router.get(
-    "/getSemesters/:id",
+    "/getYears/:id",
     Auth,
     Authorize(Role.Mentor),
-    mentorController.fetchStudentSemesters
+    mentorController.mentorGetAllMenteeSemesters
 );
 
 // update profile;

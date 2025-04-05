@@ -420,7 +420,7 @@ module.exports = {
                             middlename: "",
                             lastname: "",
                             enrollmentNumber: row.menteeEnrollment,
-                            semester: "1",
+                            year: row.menteeYear || "I", // Default to first year if not specified
                             department: row.mentorDepartment,
                             mentoredBy: mentorIds,
                             isEmailVerified: true
@@ -603,7 +603,7 @@ module.exports = {
                             middlename: "",
                             lastname: "",
                             enrollmentNumber: row.menteeEnrollment,
-                            semester: "1",
+                            year: row.menteeYear || "I", // Default to first year if not specified
                             department: row.menteeDepartment,
                             isEmailVerified: true
                         });

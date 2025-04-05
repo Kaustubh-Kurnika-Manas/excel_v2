@@ -84,11 +84,11 @@ module.exports = {
                 lastName,
                 middleName,
                 enrollmentNo,
-                semester,
+                year,
                 department,
             } = req.body;
 
-            if (!email || !password || !firstName || !semester || !enrollmentNo) {
+            if (!email || !password || !firstName || !year || !enrollmentNo) {
                 return response.badrequest(res, "Malformed input", {});
             }
 
@@ -103,20 +103,11 @@ module.exports = {
             student.middlename = middleName === "" ? "" : middleName;
             student.lastname = lastName;
             student.enrollment_no = enrollmentNo;
-            student.semester = semester;
+            student.year = year;
             student.department = department;
-            student.isEmailVerified = true
-            // const token = await jwt.sign(
-            //     { _id: student._id.toString(), role: roles.Student },
-            //     process.env.JWT_SECRET
-            // );
-
-            // student.emailVerifyToken = token;
+            student.isEmailVerified = true;
             student.emailVerifyToken = "";
             await student.save();
-
-            // sending email to mentor with link
-            // emailService.sendEmailVerificationMail(token, student.email);
 
             response.success(res, "Student created successfully", {});
             req.user = student;
@@ -158,6 +149,7 @@ module.exports = {
                 email: req.user.email || req.user.menteeEmail || "",
                 department: req.user.department || req.user.menteeDepartment || "",
                 enrollment_no: req.user.enrollment_no || req.user.menteeEnrollment || "",
+                year: req.user.year || "I", // Default to first year if not specified
                 avatar: req.user.avatar || { url: "" }
             };
             response.success(res, "", profileData);
@@ -189,15 +181,11 @@ module.exports = {
             student.guardian_address = req.body.guardian_address;
             student.family_details = req.body.family_details;
             student.hobbies = req.body.hobbies;
-            // student.class_10_board = req.body.class_10_board;
-            // student.class_10_percentage = req.body.class_10_percentage;
-            // student.class_12_board = req.body.class_12_board;
-            // student.class_12_percentage = req.body.class_12_percentage;
             student.enrollment_no = req.body.enrollment_no;
             student.programme = req.body.programme;
             student.enrollment_year = req.body.enrollment_year;
             student.department = req.body.department;
-            student.semester = req.body.semester;
+            student.year = req.body.year;
             student.hostel_name = req.body.hostel_name;
             student.hostel_room_no = req.body.hostel_room_no;
             student.warden_name = req.body.warden_name;
@@ -213,15 +201,6 @@ module.exports = {
                 .populate("mentoredBy")
                 .execPopulate();
 
-            // // getting mentor data here
-            // const mentor = await Mentor.findById(student.mentoredBy);
-
-            // if (!mentor) {
-            //     throw new Error();
-            // }
-
-            // student.mentor = mentor.name;
-
             response.success(res, "Profile Updated", { profileData: newStudentData });
             next();
         } catch (err) {
@@ -234,7 +213,7 @@ module.exports = {
         try {
             const semesters = await Semester.find({ student_id: req.user._id })
                 .sort({
-                    semester: 1,
+                    year: 1,
                 })
                 .populate("student_id");
 
@@ -245,13 +224,12 @@ module.exports = {
         }
     },
     addSemesterInfo: async (req, res, next) => {
-
         /** both the add and update semester is handled by this route   */
         try {
             let newSem;
             // checking if semester info exists on db
             const semester = await Semester.findOne({
-                semester: req.body.semester,
+                year: req.body.year,
                 student_id: req.user._id,
             });
 
@@ -264,7 +242,7 @@ module.exports = {
                 // else create a new semester and save to db
                 newSem = new Semester();
                 newSem.student_id = req.user._id;
-                newSem.semester = req.body.semester;
+                newSem.year = req.body.year;
                 newSem.courses = req.body.courses;
                 await newSem.save();
             }
@@ -318,18 +296,18 @@ module.exports = {
     // delete a semester
     deleteSemesterInfo: async (req, res, next) => {
         try {
-            const sem = req.body.sem;
+            const year = req.body.year;
 
             const deleted = await Semester.findOneAndDelete({
                 student_id: req.user._id,
-                semester: sem,
+                year: year,
             });
 
             if (!deleted) {
                 throw new Error("Some error occured");
             }
 
-            response.success(res, "Semester deleted", { semester: deleted });
+            response.success(res, "Year deleted", { semester: deleted });
             next();
         } catch (err) {
             console.log(err);

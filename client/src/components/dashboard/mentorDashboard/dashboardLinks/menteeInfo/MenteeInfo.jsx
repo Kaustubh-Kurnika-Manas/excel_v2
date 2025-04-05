@@ -32,7 +32,7 @@ const MenteeInfo = () => {
                 temp.push(mentee);
             } else if (mentee["department"].toString().toLowerCase().indexOf(value) > -1) {
                 temp.push(mentee);
-            } else if (mentee["semester"].toString().toLowerCase().indexOf(value) > -1) {
+            } else if (mentee["year"].toString().toLowerCase().indexOf(value) > -1) {
                 temp.push(mentee);
             }
         });
@@ -41,7 +41,7 @@ const MenteeInfo = () => {
         setTempList(temp);
     };
 
-    // sorting function to sort according to name, roll and semester
+    // sorting function to sort according to name, roll and year
     const sortBasedOnTerm = (e) => {
         let selTerm = e.target.name;
         let temp = mentees;
@@ -55,7 +55,7 @@ const MenteeInfo = () => {
             setTerm(selTerm);
         } else {
             temp.sort((a, b) => {
-                return a.semester.toLowerCase() > b.semester.toLowerCase() ? 1 : -1;
+                return a.year.toLowerCase() > b.year.toLowerCase() ? 1 : -1;
             });
             setTerm(selTerm);
         }
@@ -130,11 +130,11 @@ const MenteeInfo = () => {
                     </div>
                     <div className="">
                         <button
-                            name="semester"
+                            name="year"
                             onClick={sortBasedOnTerm}
                             className=" flex justify-between items-center text-sm gap-1 py-1 rounded-md"
                         >
-                            Semester
+                            Year
                             <UnfoldMoreRoundedIcon
                                 fontSize="small"
                                 className="pointer-events-none"

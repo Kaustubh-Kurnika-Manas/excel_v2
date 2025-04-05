@@ -1,7 +1,7 @@
 import io from "socket.io-client";
 import React from "react";
 
-const ENDPOINT = "http://localhost:5173";
+const ENDPOINT = "http://localhost:3000";
 
 // var socket;
 
